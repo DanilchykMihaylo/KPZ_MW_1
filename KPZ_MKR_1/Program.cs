@@ -38,5 +38,11 @@
         ul.SetState(new HiddenState());
 
         Console.WriteLine(ul.OuterHTML());
+        TagCountVisitor visitor =
+    new TagCountVisitor();
+
+        ul.Accept(visitor);
+
+        Console.WriteLine(visitor.Count);
     }
 }

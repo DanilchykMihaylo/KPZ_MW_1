@@ -94,5 +94,13 @@ class LightElementNode : LightNode
     {
         Console.WriteLine($"Child added to {tagName}");
     }
-    //
+    public override void Accept(IVisitor visitor)
+    {
+        visitor.VisitElementNode(this);
+
+        foreach (var child in children)
+        {
+            child.Accept(visitor);
+        }
+    }
 }

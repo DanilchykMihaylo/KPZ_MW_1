@@ -16,4 +16,8 @@
     {
         return text;
     }
+    public override void Accept(IVisitor visitor)
+    {
+        visitor.VisitTextNode(this);
+    }
 }
