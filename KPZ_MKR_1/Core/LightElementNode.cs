@@ -2,13 +2,20 @@
 
 class LightElementNode : LightNode
 {
+
     private string tagName;
     private string displayType;
     private bool isSelfClosing;
 
     private List<string> classes = new List<string>();
     private List<LightNode> children = new List<LightNode>();
+    private IElementState state =
+    new NormalState();
 
+    public void SetState(IElementState state)
+    {
+        this.state = state;
+    }
     public LightElementNode(
         string tagName,
         string displayType,
@@ -70,8 +77,8 @@ class LightElementNode : LightNode
             sb.Append(InnerHTML());
             sb.Append($"</{tagName}>");
         }
+        return state.Handle(sb.ToString());
 
-        return sb.ToString();
     }
     protected override void OnCreated()
     {

@@ -35,5 +35,8 @@
     new AddClassCommand(ul, "active");
 
         command.Execute();
+        ul.SetState(new HiddenState());
+
+        Console.WriteLine(ul.OuterHTML());
     }
 }
