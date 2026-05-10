@@ -21,5 +21,15 @@
         ul.AddChild(li2);
 
         Console.WriteLine(ul.OuterHTML());
+        Console.WriteLine("\nDFS:");
+
+        DepthFirstIterator iterator =
+            new DepthFirstIterator(ul);
+
+        while (iterator.HasNext())
+        {
+            Console.WriteLine(
+                iterator.Next().OuterHTML());
+        }
     }
 }
