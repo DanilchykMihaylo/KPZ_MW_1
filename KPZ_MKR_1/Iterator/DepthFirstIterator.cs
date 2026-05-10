@@ -1,7 +1,6 @@
-﻿class DepthFirstIterator
+﻿class DepthFirstIterator : IIterator
 {
-    private Stack<LightNode> stack =
-        new Stack<LightNode>();
+    private Stack<LightNode> stack = new Stack<LightNode>();
 
     public DepthFirstIterator(LightNode root)
     {
@@ -29,4 +28,9 @@
 
         return current;
     }
+}
+interface IIterator
+{
+    bool HasNext();
+    LightNode Next();
 }

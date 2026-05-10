@@ -2,20 +2,15 @@
 
 class LightElementNode : LightNode
 {
-
     private string tagName;
     private string displayType;
     private bool isSelfClosing;
 
     private List<string> classes = new List<string>();
     private List<LightNode> children = new List<LightNode>();
-    private IElementState state =
-    new NormalState();
 
-    public void SetState(IElementState state)
-    {
-        this.state = state;
-    }
+    private IElementState state = new NormalState();
+
     public LightElementNode(
         string tagName,
         string displayType,
@@ -24,6 +19,11 @@ class LightElementNode : LightNode
         this.tagName = tagName;
         this.displayType = displayType;
         this.isSelfClosing = isSelfClosing;
+    }
+
+    public void SetState(IElementState state)
+    {
+        this.state = state;
     }
 
     public void AddClass(string className)
@@ -46,7 +46,7 @@ class LightElementNode : LightNode
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach (LightNode child in children)
+        foreach (var child in children)
         {
             sb.Append(child.OuterHTML());
         }
@@ -56,15 +56,13 @@ class LightElementNode : LightNode
 
     public override string OuterHTML()
     {
-        OnRendered();
         StringBuilder sb = new StringBuilder();
 
         string classText = "";
 
         if (classes.Count > 0)
         {
-            classText =
-                $" class=\"{string.Join(" ", classes)}\"";
+            classText = $" class=\"{string.Join(" ", classes)}\"";
         }
 
         if (isSelfClosing)
@@ -77,9 +75,10 @@ class LightElementNode : LightNode
             sb.Append(InnerHTML());
             sb.Append($"</{tagName}>");
         }
-        return state.Handle(sb.ToString());
 
+        return state.Handle(sb.ToString());
     }
+
     protected override void OnCreated()
     {
         Console.WriteLine($"{tagName} created");
@@ -87,13 +86,13 @@ class LightElementNode : LightNode
 
     protected override void OnRendered()
     {
-        Console.WriteLine($"{tagName} rendered");
     }
 
     protected override void OnChildAdded(LightNode node)
     {
         Console.WriteLine($"Child added to {tagName}");
     }
+
     public override void Accept(IVisitor visitor)
     {
         visitor.VisitElementNode(this);

@@ -20,7 +20,9 @@
         ul.AddChild(li1);
         ul.AddChild(li2);
 
+        Console.WriteLine("HTML:");
         Console.WriteLine(ul.OuterHTML());
+
         Console.WriteLine("\nDFS:");
 
         DepthFirstIterator iterator =
@@ -28,21 +30,28 @@
 
         while (iterator.HasNext())
         {
-            Console.WriteLine(
-                iterator.Next().OuterHTML());
+            Console.WriteLine(iterator.Next().OuterHTML());
         }
+
         ICommand command =
-    new AddClassCommand(ul, "active");
+            new AddClassCommand(ul, "active");
 
         command.Execute();
+
+        Console.WriteLine("\nAfter Command:");
+        Console.WriteLine(ul.OuterHTML());
+
         ul.SetState(new HiddenState());
 
+        Console.WriteLine("\nAfter State:");
         Console.WriteLine(ul.OuterHTML());
+
         TagCountVisitor visitor =
-    new TagCountVisitor();
+            new TagCountVisitor();
 
         ul.Accept(visitor);
 
-        Console.WriteLine(visitor.Count);
+        Console.WriteLine("\nVisitor:");
+        Console.WriteLine($"Total elements: {visitor.Count}");
     }
 }
