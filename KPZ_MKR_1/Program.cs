@@ -31,5 +31,9 @@
             Console.WriteLine(
                 iterator.Next().OuterHTML());
         }
+        ICommand command =
+    new AddClassCommand(ul, "active");
+
+        command.Execute();
     }
 }
