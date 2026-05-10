@@ -27,6 +27,7 @@ class LightElementNode : LightNode
     public void AddChild(LightNode node)
     {
         children.Add(node);
+        OnChildAdded(node);
     }
 
     public List<LightNode> GetChildren()
@@ -48,6 +49,7 @@ class LightElementNode : LightNode
 
     public override string OuterHTML()
     {
+        OnRendered();
         StringBuilder sb = new StringBuilder();
 
         string classText = "";
@@ -71,4 +73,19 @@ class LightElementNode : LightNode
 
         return sb.ToString();
     }
+    protected override void OnCreated()
+    {
+        Console.WriteLine($"{tagName} created");
+    }
+
+    protected override void OnRendered()
+    {
+        Console.WriteLine($"{tagName} rendered");
+    }
+
+    protected override void OnChildAdded(LightNode node)
+    {
+        Console.WriteLine($"Child added to {tagName}");
+    }
+    //
 }
